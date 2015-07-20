@@ -1,0 +1,26 @@
+{
+  "name": "MQTT-Bootstrap",
+  "version": "0.0.1",
+  "description": "Quickest way to make an MQTT web application",
+  "main": "index.html",
+  "keywords": [
+    "angular",
+    "mqtt"
+  ],
+  "authors": [
+    "Paul Caponetti"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "bootstrap": "~3.3.5",
+    "Chart.js": "~1.0.2"
+  }
+}
