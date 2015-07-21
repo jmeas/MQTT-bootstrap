@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 					'js/directives/mqttControls.js',
 					'js/directives/mqttBar.js',
 					'js/directives/mqttDoughnut.js',
+					'js/directives/mqttPublisher.js',
 				],
 				dest: 'dist/mqttControls.full.js'
 			}
@@ -20,9 +21,10 @@ module.exports = function(grunt) {
 			my_target: {
 				files: {
 					'dist/mqttControls.min.js': [
-						'js/directives/mqttControls.js',
-						'js/directives/mqttBar.js',
-						'js/directives/mqttDoughnut.js',
+					'js/directives/mqttControls.js',
+					'js/directives/mqttBar.js',
+					'js/directives/mqttDoughnut.js',
+					'js/directives/mqttPublisher.js',
 					]
 				}
 			}

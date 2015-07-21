@@ -20,6 +20,12 @@
       <div style="float:left">
         <mqtt-doughnut host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"></mqtt-doughnut>
       </div>
+      <div style="clear:both">
+        <mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"></mqtt-publisher>
+      </div>
+      <div style="clear:both">
+        <mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"></mqtt-publisher>
+      </div>
     </form>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -29,8 +35,8 @@
   <script src="bower_components/angular/angular.min.js"></script> 
   <script src="bower_components/Chart.js/Chart.js"></script>
   <script src="bower_components/bower-paho-mqtt/src/mqttws31.js"></script>
-  <script src="dist/mqttControls.min.js"></script>
   <script src="js/services/mqtt.js"></script>
   <script src="js/main.js"></script>
+  <script src="dist/mqttControls.min.js"></script>
   </body>
 </html>
