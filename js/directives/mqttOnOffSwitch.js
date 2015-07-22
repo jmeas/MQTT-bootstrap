@@ -33,11 +33,13 @@ angular.module("Mqtt.Controls").directive('mqttOnOffSwitch', function(){
 				document.getElementById(scope.uniqueId).checked=tmp == "on";
 				scope.$apply();
     		});
+    	scope.topic = attributes.topic;
     },
     replace: true,
     template:
     	"<form action='.'>" 
     	+ "	<input type='checkbox' id='{{::uniqueId}}' ng-click='sendMessage()'></input>"
+    	+ " <label for='{{::uniqueId}}'>{{topic}}</label>"
     	+ "</form>"
   }
 });
