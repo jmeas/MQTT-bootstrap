@@ -17,7 +17,16 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
     		attributes.user, attributes.pass, 
     		attributes.useSsl == "true", attributes.topic,
     		function(message){
-				var tmp = parseInt(message.payloadString);
+				var tmp;
+				var nm = message.destinationName;
+				if(message.payloadString.indexOf('=')>0){
+					// TODO: split on =
+					var data = message.payloadString.split('=');
+					var nm = data[0];
+					tmp = parseFloat(data[1]);
+				}else{
+					tmp = parseFloat(message.payloadString);
+				}
 				var ctx = document.getElementById(scope.uniqueId).getContext("2d");
 				if(max == undefined) {max = parseInt(tmp) * 1.2;}
 				if(scope.chart == undefined){
@@ -25,9 +34,9 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 						.Doughnut([
 							{
 								value: tmp,
-								color: (tmp>80?"#F7464A":"#46BFBD"),
-								highlight: (tmp>80?"#FF5A5E":"#5AD3D1"),
-								label: message.destinationName
+								color: "#46BFBD",
+								highlight: "#5AD3D1",
+								label: nm
 							},
 							{
 								value: max - tmp,
@@ -37,8 +46,28 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 							}
 						], {animationSteps : 50});
 				}else{
+					var sum = 0;
+					var found = false;
+					for(var x = 0; x < scope.chart.segments.length; x++){
+						if(scope.chart.segments[x].label == nm){
+							scope.chart.segments[x].value = tmp;
+							found = true;
+						}
+						sum += scope.chart.segments[x].value;
+					}
+					if(!found){
+						scope.chart.addData(
+							{
+								value: tmp,
+								color: "#46BFBD",
+								highlight: "#5AD3D1",
+								label: nm
+							}
+						);
+						sum += tmp;
+					}
 					scope.chart.segments[0].value = tmp;
-					scope.chart.segments[1].value = max - tmp;
+					scope.chart.segments[1].value = max - sum;
 					scope.chart.update();
 				}
 					scope.$apply();
