@@ -48,12 +48,19 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 				}else{
 					var sum = 0;
 					var found = false;
+					var emptyInd = -1;
 					for(var x = 0; x < scope.chart.segments.length; x++){
-						if(scope.chart.segments[x].label == nm){
-							scope.chart.segments[x].value = tmp;
+						var seg = scope.chart.segments[x];
+						if(seg.label == nm){
+							seg.value = tmp;
 							found = true;
 						}
-						sum += scope.chart.segments[x].value;
+						if(seg.label != "empty")
+						{
+							sum += scope.chart.segments[x].value;
+						}else{
+							emptyInd = x;
+						}
 					}
 					if(!found){
 						scope.chart.addData(
@@ -66,6 +73,7 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 						);
 						sum += tmp;
 					}
+					scope.chart.segments[emptyInd].value = max - sum;
 					scope.chart.update();
 				}
 					scope.$apply();

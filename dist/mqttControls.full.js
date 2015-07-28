@@ -11,23 +11,34 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 	    }
 	    $scope.chart = undefined;
 	    $scope.uniqueId = "myChart" + $scope.$id;
+	    $scope.labels = [];
     }],
     link: function(scope, element, attributes, ctrl){
-    	var max = attributes.maxValue;
+    	//var max = attributes.maxValue;
     	scope.connect(attributes.host, parseInt(attributes.port),
     		attributes.user, attributes.pass, 
     		attributes.useSsl == "true", attributes.topic,
     		function(message){
-				var tmp = parseInt(message.payloadString);
+				var tmp;
+				var nm = message.destinationName;
+				if(message.payloadString.indexOf('=')>0){
+					// TODO: split on =
+					var data = message.payloadString.split('=');
+					var nm = data[0];
+					tmp = parseFloat(data[1]);
+				}else{
+					tmp = parseFloat(message.payloadString);
+				}
 				var ctx = document.getElementById(scope.uniqueId).getContext("2d");
-				if(max == undefined) {max = tmp * 1.2;}
+				//if(max == undefined) {max = tmp * 1.2;}
+				scope.labels.push(nm);
 				if(scope.chart == undefined){
 					scope.chart = new Chart(ctx)
 						.Bar(
 							{
-								labels: [message.destinationName],
+								labels: [nm],
 								datasets: [{
-						            //label: "My First dataset",
+						            label: "main",
 						            fillColor: "rgba(220,220,220,0.5)",
 						            strokeColor: "rgba(220,220,220,0.8)",
 						            highlightFill: "rgba(220,220,220,0.75)",
@@ -38,7 +49,20 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 							}, {animationSteps : 50});
 				
 					}else{
-						scope.chart.datasets[0].bars[0].value = tmp;
+						var found = false;
+						for(var x = 0; x < scope.labels.length; x++)
+						{
+							var lbl = scope.labels[x];
+							if(lbl.label == nm){
+								found = true;
+								scope.chart.datasets[0].data[x] = tmp;
+							}
+						}
+						if(!found)
+						{
+							scope.chart.addData([tmp], nm);
+						}
+						//scope.chart.datasets[0].bars[0].value = tmp;
 						scope.chart.update();
 					}
 					scope.$apply();
@@ -99,12 +123,19 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 				}else{
 					var sum = 0;
 					var found = false;
+					var emptyInd = -1;
 					for(var x = 0; x < scope.chart.segments.length; x++){
-						if(scope.chart.segments[x].label == nm){
-							scope.chart.segments[x].value = tmp;
+						var seg = scope.chart.segments[x];
+						if(seg.label == nm){
+							seg.value = tmp;
 							found = true;
 						}
-						sum += scope.chart.segments[x].value;
+						if(seg.label != "empty")
+						{
+							sum += scope.chart.segments[x].value;
+						}else{
+							emptyInd = x;
+						}
 					}
 					if(!found){
 						scope.chart.addData(
@@ -117,6 +148,7 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 						);
 						sum += tmp;
 					}
+					scope.chart.segments[emptyInd].value = max - sum;
 					scope.chart.update();
 				}
 					scope.$apply();
