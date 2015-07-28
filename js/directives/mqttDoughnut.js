@@ -66,8 +66,6 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 						);
 						sum += tmp;
 					}
-					scope.chart.segments[0].value = tmp;
-					scope.chart.segments[1].value = max - sum;
 					scope.chart.update();
 				}
 					scope.$apply();
