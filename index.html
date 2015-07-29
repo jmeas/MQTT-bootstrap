@@ -95,11 +95,11 @@
           <h2>Text Entry</h2>
           <p>Publish arbitrary text to an MQTT topic using a tag like the following:</p>
           <pre>
-            &lt;mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"&gt;&lt;/mqtt-publisher&gt;
+            &lt;mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing"&gt;&lt;/mqtt-publisher&gt;
           </pre>
           <p>Try typing in a number in one of the following text boxes and see what happens when you publish!</p>
           <div style="clear:both">
-            <mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"></mqtt-publisher>
+            <mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing"></mqtt-publisher>
           </div>
           <div style="clear:both">
             <mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"></mqtt-publisher>
@@ -119,6 +119,26 @@
           </pre>
           <div>
             <mqtt-doughnut host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"></mqtt-doughnut>
+          </div>
+          <h2>MQTT Panel</h2>
+          <p>Create a few controls all based on the same MQTT connection information</p>
+          <pre>
+            &lt;mqtt-panel host="broker.mqttdashboard.com" port="8000"&gt;
+              &lt;mqtt-on-off-switch host="broker.mqttdashboard.com" port="8000" topic="/onOrOff"&gt;&lt;/mqtt-on-off-switch&gt;
+              &lt;mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"&gt;&lt;/mqtt-publisher&gt;
+              &lt;mqtt-bar topic="/testing">&lt;/mqtt-bar&gt;
+              &lt;mqtt-doughnut topic="/testing" max-value="200"&gt;&lt;/mqtt-doughnut&gt;
+            &lt;/mqtt-panel&gt;
+          </pre>
+          <div>
+            <mqtt-panel host="broker.mqttdashboard.com" port="8000">
+              <mqtt-on-off-switch topic="/onOrOff"></mqtt-on-off-switch><br />
+              <mqtt-on-off-switch topic="/onOrOff"></mqtt-on-off-switch><br />
+              <mqtt-publisher topic="/testing"></mqtt-publisher><br />
+              <mqtt-publisher topic="/testing"></mqtt-publisher><br />
+              <mqtt-bar topic="/testing"></mqtt-bar>
+              <mqtt-doughnut topic="/testing" max-value="200"></mqtt-doughnut>
+            </mqtt-panel>
           </div>
         </form>
       </div>
