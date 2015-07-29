@@ -51,7 +51,7 @@
                 var tse = toSend[key];
                 if(tse != undefined){
                   for(var x = 0; x < tse.length; x++){
-                    client.sendMessage(tse[x].msg, tse[x].topic, host, port, user, pass, useSSL);
+                    mqttObj.sendMessage(tse[x].msg, tse[x].topic, host, port, user, pass, useSSL);
                   }
                 }
               },

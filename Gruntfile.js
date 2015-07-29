@@ -8,6 +8,7 @@ module.exports = function(grunt) {
 					'js/directives/mqttDoughnut.js',
 					'js/directives/mqttPublisher.js',
 					'js/directives/mqttOnOffSwitch.js',
+					'js/directives/mqttTimeSeries.js',
 				],
 				dest: 'dist/mqttControls.full.js'
 			}
@@ -27,6 +28,7 @@ module.exports = function(grunt) {
 					'js/directives/mqttDoughnut.js',
 					'js/directives/mqttPublisher.js',
 					'js/directives/mqttOnOffSwitch.js',
+					'js/directives/mqttTimeSeries.js',
 					]
 				}
 			}

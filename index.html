@@ -80,6 +80,16 @@
       </div>
       <div class="container">
         <form>
+
+          <h2>Time Series</h2>
+          <p ng-controller="timeSeries">Use this line graph to show data over time</p>
+          <pre>
+            &lt;mqtt-time-series host="broker.mqttdashboard.com" port="8000" topic="/ts" max-points="40" interval="250"&gt;&lt;/mqtt-time-series&gt;
+          </pre>
+          <div>
+            <mqtt-time-series host="broker.mqttdashboard.com" port="8000" topic="/ts" max-points="40" interval="250"></mqtt-time-series>
+          </div>
+
           <h2>On/Off Switches</h2>
           <p>Quickly make an on/off switch by adding a tag like the following:</p>
           <pre>
@@ -92,6 +102,7 @@
           <div style="clear:both">
             <mqtt-on-off-switch host="broker.mqttdashboard.com" port="8000" topic="/onOrOff"></mqtt-on-off-switch>
           </div>
+
           <h2>Text Entry</h2>
           <p>Publish arbitrary text to an MQTT topic using a tag like the following:</p>
           <pre>
@@ -104,6 +115,7 @@
           <div style="clear:both">
             <mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"></mqtt-publisher>
           </div>
+
           <h2>Bar Chart</h2>
           <p>Create a quick single bar chart with a tag like the following:</p>
           <pre>
@@ -112,6 +124,7 @@
           <div>
             <mqtt-bar host="broker.mqttdashboard.com" port="8000" topic="/testing"></mqtt-bar>
           </div>
+
           <h2>Doughnut Chart</h2>
           <p>Create a doughnut chart with a tag like the following:</p>
           <pre>
@@ -120,6 +133,7 @@
           <div>
             <mqtt-doughnut host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"></mqtt-doughnut>
           </div>
+
           <h2>MQTT Panel</h2>
           <p>Create a few controls all based on the same MQTT connection information</p>
           <pre>
