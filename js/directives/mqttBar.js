@@ -10,7 +10,6 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 	    }
 	    $scope.chart = undefined;
 	    $scope.uniqueId = "myChart" + $scope.$id;
-	    $scope.labels = [];
     }],
     link: function(scope, element, attributes, ctrl){
     	//var max = attributes.maxValue;
@@ -30,7 +29,6 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 				}
 				var ctx = document.getElementById(scope.uniqueId).getContext("2d");
 				//if(max == undefined) {max = tmp * 1.2;}
-				scope.labels.push(nm);
 				if(scope.chart == undefined){
 					scope.chart = new Chart(ctx)
 						.Bar(
@@ -49,12 +47,12 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 				
 					}else{
 						var found = false;
-						for(var x = 0; x < scope.labels.length; x++)
+						for(var x = 0; x < scope.chart.datasets[0].bars.length; x++)
 						{
-							var lbl = scope.labels[x];
-							if(lbl.label == nm){
+							var bar = scope.chart.datasets[0].bars[x];
+							if(bar.label == nm){
 								found = true;
-								scope.chart.datasets[0].data[x] = tmp;
+								bar.value = tmp;
 							}
 						}
 						if(!found)

@@ -36,9 +36,9 @@ angular.module("Mqtt.Controls").directive('mqttPublisher', function(){
     },
     replace: true,
     template:
-    	"<form action='.'>" 
+    	"<form ng-submit='sendMessage()'>" 
     	+ "	<input type='text' id='{{::uniqueId}}'></input>"
-    	+ "	<input type='button' value='Publish' ng-click='sendMessage()' />"
+    	+ "	<input type='submit' value='Publish' />"
     	+ "</form>"
   }
 });
