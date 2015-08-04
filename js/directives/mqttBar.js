@@ -7,8 +7,8 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 	    	///////////////////////////////////////////////////////
 	    	// only a fallback for if this tag isn't in an mqtt-panel
 	    	$scope.connect = function(host, port, user, pass,
-	    		useSSL, topic, callback){
-	    		mqtt.connect(host, port, user, pass, useSSL);
+	    		useSSL, topic, clientId, callback){
+	    		mqtt.connect(host, port, user, pass, useSSL, clientId);
 	    		mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
 	    	}
 	    	///////////////////////////////////////////////////////
@@ -27,6 +27,7 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 	    		}else{
 	    			tmp = parseFloat(message.payloadString);
 	    		}
+          if(nm.length > 40) nm = nm.substring(0, 40) + "...";
 
 	    		// get chart
 	    		var ctx = document.getElementById(scope.uniqueId).getContext("2d");
@@ -69,9 +70,9 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 
 	    	if(attributes.host && attributes.host.length){
 	    		scope.connect(attributes.host, parseInt(attributes.port),
-	    			attributes.user, attributes.pass, 
+	    			attributes.user, attributes.password, 
 	    			attributes.useSsl == "true", attributes.topic,
-	    			callback);
+	    			attributes.clientId, callback);
 	    	}else if(mqttPanelController != undefined){
 	    		scope.$on('ready-to-connect', function(event, arg){
 	    			mqttPanelController.connect(attributes.topic, callback);
@@ -79,6 +80,6 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 	    	}
 		},
 		replace: true,
-		template: "<canvas id='{{::uniqueId}}' width='400' height='400'></canvas>"
+		template: "<canvas id='{{::uniqueId}}' width='400' height='600'></canvas>"
 	}
 });

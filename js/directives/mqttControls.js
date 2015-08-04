@@ -10,13 +10,15 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 			$scope.user = '';
 			$scope.pass = '';
 			$scope.useSSL = false;
+      $scope.clientId;
 		    this.connect = function(topic, callback){
 			    mqtt.connect(
 			    	$scope.host, 
 			    	$scope.port, 
 			    	$scope.user, 
 			    	$scope.pass, 
-			    	$scope.useSSL);
+			    	$scope.useSSL,
+            $scope.clientId);
 			    mqtt.subscribe(
 			    	topic, 
 			    	callback, 
@@ -24,7 +26,8 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 			    	$scope.port, 
 			    	$scope.user, 
 			    	$scope.pass, 
-			    	$scope.useSSL);
+			    	$scope.useSSL,
+            $scope.clientId);
 		    };
 		    this.sendMessage = function(topic, message){
 		    	mqtt.sendMessage(
@@ -45,7 +48,9 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 			scope.host = attributes.host;
 			scope.port = parseInt(attributes.port);
 			scope.user = attributes.user;
-			scope.useSSL = attributes.useSSL == 'true';
+      scope.pass = attributes.password;
+			scope.useSSL = attributes.useSsl == 'true';
+      scope.clientId = attributes.clientId;
 			ctrl.ready();
 		},
 	}

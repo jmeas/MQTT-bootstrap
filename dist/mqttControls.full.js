@@ -10,13 +10,15 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 			$scope.user = '';
 			$scope.pass = '';
 			$scope.useSSL = false;
+      $scope.clientId;
 		    this.connect = function(topic, callback){
 			    mqtt.connect(
 			    	$scope.host, 
 			    	$scope.port, 
 			    	$scope.user, 
 			    	$scope.pass, 
-			    	$scope.useSSL);
+			    	$scope.useSSL,
+            $scope.clientId);
 			    mqtt.subscribe(
 			    	topic, 
 			    	callback, 
@@ -24,7 +26,8 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 			    	$scope.port, 
 			    	$scope.user, 
 			    	$scope.pass, 
-			    	$scope.useSSL);
+			    	$scope.useSSL,
+            $scope.clientId);
 		    };
 		    this.sendMessage = function(topic, message){
 		    	mqtt.sendMessage(
@@ -45,7 +48,9 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 			scope.host = attributes.host;
 			scope.port = parseInt(attributes.port);
 			scope.user = attributes.user;
-			scope.useSSL = attributes.useSSL == 'true';
+      scope.pass = attributes.password;
+			scope.useSSL = attributes.useSsl == 'true';
+      scope.clientId = attributes.clientId;
 			ctrl.ready();
 		},
 	}
@@ -60,8 +65,8 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 	    	///////////////////////////////////////////////////////
 	    	// only a fallback for if this tag isn't in an mqtt-panel
 	    	$scope.connect = function(host, port, user, pass,
-	    		useSSL, topic, callback){
-	    		mqtt.connect(host, port, user, pass, useSSL);
+	    		useSSL, topic, clientId, callback){
+	    		mqtt.connect(host, port, user, pass, useSSL, clientId);
 	    		mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
 	    	}
 	    	///////////////////////////////////////////////////////
@@ -80,6 +85,7 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 	    		}else{
 	    			tmp = parseFloat(message.payloadString);
 	    		}
+          if(nm.length > 40) nm = nm.substring(0, 40) + "...";
 
 	    		// get chart
 	    		var ctx = document.getElementById(scope.uniqueId).getContext("2d");
@@ -122,9 +128,9 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 
 	    	if(attributes.host && attributes.host.length){
 	    		scope.connect(attributes.host, parseInt(attributes.port),
-	    			attributes.user, attributes.pass, 
+	    			attributes.user, attributes.password, 
 	    			attributes.useSsl == "true", attributes.topic,
-	    			callback);
+	    			attributes.clientId, callback);
 	    	}else if(mqttPanelController != undefined){
 	    		scope.$on('ready-to-connect', function(event, arg){
 	    			mqttPanelController.connect(attributes.topic, callback);
@@ -132,7 +138,7 @@ angular.module("Mqtt.Controls").directive('mqttBar', function(){
 	    	}
 		},
 		replace: true,
-		template: "<canvas id='{{::uniqueId}}' width='400' height='400'></canvas>"
+		template: "<canvas id='{{::uniqueId}}' width='400' height='600'></canvas>"
 	}
 });
 
@@ -145,8 +151,8 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
     	///////////////////////////////////////////////////////
     	// only a fallback for if this tag isn't in an mqtt-panel
 	    $scope.connect = function(host, port, user, pass,
-	    	useSSL, topic, callback){
-		    mqtt.connect(host, port, user, pass, useSSL);
+	    	useSSL, topic, clientId, callback){
+		    mqtt.connect(host, port, user, pass, useSSL, clientId);
 		    mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
 	    }
     	///////////////////////////////////////////////////////
@@ -218,9 +224,9 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 		};
     	if(attributes.host && attributes.host.length){
 	    	scope.connect(attributes.host, parseInt(attributes.port),
-	    		attributes.user, attributes.pass, 
+	    		attributes.user, attributes.password, 
 	    		attributes.useSsl == "true", attributes.topic,
-	    		callback);
+	    		attributes.clientId, callback);
 	    } else if(mqttPanelController != undefined){
     		scope.$on('ready-to-connect', function(event, arg){
     			mqttPanelController.connect(attributes.topic, callback);
@@ -242,8 +248,8 @@ angular.module("Mqtt.Controls").directive('mqttPublisher', function(){
         // only a fallback for if this tag isn't in an mqtt-panel
     	var host,port,user,pass,useSSL,topic;
 	    $scope.connect = function(hostp, portp, userp, passp,
-	    	useSSLp, topicp, callback){
-		    mqtt.connect(hostp, portp, userp, passp, useSSLp);
+	    	useSSLp, topicp, clientId, callback){
+		    mqtt.connect(hostp, portp, userp, passp, useSSLp, clientId);
 		    mqtt.subscribe(topicp, callback, hostp, portp, userp, passp, useSSLp);
 		    host = hostp;
 		    port = portp;
@@ -269,9 +275,9 @@ angular.module("Mqtt.Controls").directive('mqttPublisher', function(){
 		};
 		if(attributes.host && attributes.host.length){
 	    	scope.connect(attributes.host, parseInt(attributes.port),
-	    		attributes.user, attributes.pass, 
+	    		attributes.user, attributes.password, 
 	    		attributes.useSsl == "true", attributes.topic,
-	    		callback);
+	    		attributes.clientId, callback);
 		}else if(mqttPanelController != undefined){
             scope.$on('ready-to-connect', function(event, arg){
                 mqttPanelController.connect(attributes.topic, callback);
@@ -303,8 +309,8 @@ angular.module("Mqtt.Controls").directive('mqttOnOffSwitch', function(){
         // only a fallback for if this tag isn't in an mqtt-panel
         var host,port,user,pass,useSSL,topic;
 	    $scope.connect = function(hostp, portp, userp, passp,
-	    	useSSLp, topicp, callback){
-		    mqtt.connect(hostp, portp, userp, passp, useSSLp);
+	    	useSSLp, topicp, clientId, callback){
+		    mqtt.connect(hostp, portp, userp, passp, useSSLp, clientId);
 		    mqtt.subscribe(topicp, callback, hostp, portp, userp, passp, useSSLp);
 		    host = hostp;
 		    port = portp;
@@ -331,9 +337,9 @@ angular.module("Mqtt.Controls").directive('mqttOnOffSwitch', function(){
         scope.topic = attributes.topic;
         if(attributes.host && attributes.host.length){
             scope.connect(attributes.host, parseInt(attributes.port),
-                attributes.user, attributes.pass, 
+                attributes.user, attributes.password, 
                 attributes.useSsl == "true", attributes.topic,
-                callback);
+                attributes.clientId, callback);
         } else if(mqttPanelController != undefined){
             scope.$on('ready-to-connect', function(event, arg){
                 mqttPanelController.connect(attributes.topic, callback);
@@ -364,8 +370,8 @@ angular.module("Mqtt.Controls").directive('mqttTimeSeries', function(){
 	    	///////////////////////////////////////////////////////
 	    	// only a fallback for if this tag isn't in an mqtt-panel
 	    	$scope.connect = function(host, port, user, pass,
-	    		useSSL, topic, callback){
-	    		mqtt.connect(host, port, user, pass, useSSL);
+	    		useSSL, topic, clientId, callback){
+	    		mqtt.connect(host, port, user, pass, useSSL, clientId);
 	    		mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
 	    	}
 	    	///////////////////////////////////////////////////////
@@ -387,6 +393,7 @@ angular.module("Mqtt.Controls").directive('mqttTimeSeries', function(){
     			tmp = parseFloat(message.payloadString);
     			scope.curValue = tmp;
     		}
+        var tmp = 0;
     		setInterval(function(){
 	    		// get chart
 	    		var ctx = document.getElementById(scope.uniqueId).getContext("2d");
@@ -420,9 +427,9 @@ angular.module("Mqtt.Controls").directive('mqttTimeSeries', function(){
 
 	    	if(attributes.host && attributes.host.length){
 	    		scope.connect(attributes.host, parseInt(attributes.port),
-	    			attributes.user, attributes.pass, 
+	    			attributes.user, attributes.password, 
 	    			attributes.useSsl == "true", attributes.topic,
-	    			callback);
+	    			attributes.clientId, callback);
 	    	}else if(mqttPanelController != undefined){
 	    		scope.$on('ready-to-connect', function(event, arg){
 	    			mqttPanelController.connect(attributes.topic, callback);

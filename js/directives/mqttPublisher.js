@@ -8,8 +8,8 @@ angular.module("Mqtt.Controls").directive('mqttPublisher', function(){
         // only a fallback for if this tag isn't in an mqtt-panel
     	var host,port,user,pass,useSSL,topic;
 	    $scope.connect = function(hostp, portp, userp, passp,
-	    	useSSLp, topicp, callback){
-		    mqtt.connect(hostp, portp, userp, passp, useSSLp);
+	    	useSSLp, topicp, clientId, callback){
+		    mqtt.connect(hostp, portp, userp, passp, useSSLp, clientId);
 		    mqtt.subscribe(topicp, callback, hostp, portp, userp, passp, useSSLp);
 		    host = hostp;
 		    port = portp;
@@ -35,9 +35,9 @@ angular.module("Mqtt.Controls").directive('mqttPublisher', function(){
 		};
 		if(attributes.host && attributes.host.length){
 	    	scope.connect(attributes.host, parseInt(attributes.port),
-	    		attributes.user, attributes.pass, 
+	    		attributes.user, attributes.password, 
 	    		attributes.useSsl == "true", attributes.topic,
-	    		callback);
+	    		attributes.clientId, callback);
 		}else if(mqttPanelController != undefined){
             scope.$on('ready-to-connect', function(event, arg){
                 mqttPanelController.connect(attributes.topic, callback);

@@ -7,8 +7,8 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
     	///////////////////////////////////////////////////////
     	// only a fallback for if this tag isn't in an mqtt-panel
 	    $scope.connect = function(host, port, user, pass,
-	    	useSSL, topic, callback){
-		    mqtt.connect(host, port, user, pass, useSSL);
+	    	useSSL, topic, clientId, callback){
+		    mqtt.connect(host, port, user, pass, useSSL, clientId);
 		    mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
 	    }
     	///////////////////////////////////////////////////////
@@ -80,9 +80,9 @@ angular.module("Mqtt.Controls").directive('mqttDoughnut', function(){
 		};
     	if(attributes.host && attributes.host.length){
 	    	scope.connect(attributes.host, parseInt(attributes.port),
-	    		attributes.user, attributes.pass, 
+	    		attributes.user, attributes.password, 
 	    		attributes.useSsl == "true", attributes.topic,
-	    		callback);
+	    		attributes.clientId, callback);
 	    } else if(mqttPanelController != undefined){
     		scope.$on('ready-to-connect', function(event, arg){
     			mqttPanelController.connect(attributes.topic, callback);
