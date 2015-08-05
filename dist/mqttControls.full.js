@@ -41,7 +41,7 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 		    };
 		    this.ready = function(){
 		    	// TODO: figure out why this has to be root scope
-	    		$rootScope.$broadcast('ready-to-connect', {});
+	    		$scope.$broadcast('ready-to-connect', {});
 		    };
 		}],
 		link: function(scope, element, attributes, ctrl){
@@ -53,6 +53,9 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
       scope.clientId = attributes.clientId;
 			ctrl.ready();
 		},
+    transclude: true,
+    template: "<div ng-transclude></div>",
+    replace: true
 	}
 });
 
@@ -302,7 +305,7 @@ angular.module("Mqtt.Controls").directive('mqttPublisher', function(){
 angular.module("Mqtt.Controls").directive('mqttOnOffSwitch', function(){
   return {
     restrict: 'E',
-    scope: {},
+    scope: {'host':'='},
     require: '^?mqttPanel',
     controller: ["$scope", "mqtt", function($scope, mqtt){
         ///////////////////////////////////////////////////////
@@ -331,6 +334,11 @@ angular.module("Mqtt.Controls").directive('mqttOnOffSwitch', function(){
     link: function(scope, element, attributes, mqttPanelController){
         var callback = function(message){
             var tmp = message.payloadString;
+            if(attributes.transform != undefined
+              && window[attributes.transform] != undefined)
+            {
+              tmp = window[attributes.transform](tmp);
+            }
             document.getElementById(scope.uniqueId).checked=tmp == "on";
             scope.$apply();
         };

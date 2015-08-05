@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="MqttDash">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -69,7 +69,7 @@
       }    
       </style>
     </head>
-    <body>
+    <body ng-app="MqttDash">
       <div class="jumbotron">
         <div class="container">
           <h1>Hello, Things!</h1>
@@ -78,11 +78,11 @@
           </p>
         </div>
       </div>
-      <div class="container">
+      <div class="container" ng-controller="timeSeries">
         <form>
 
           <h2>Time Series</h2>
-          <p ng-controller="timeSeries">Use this line graph to show data over time</p>
+          <p>Use this line graph to show data over time</p>
           <pre>
             &lt;mqtt-time-series host="broker.mqttdashboard.com" port="8000" topic="/ts" max-points="40" interval="250"&gt;&lt;/mqtt-time-series&gt;
           </pre>
@@ -133,6 +133,7 @@
           <pre>
             &lt;mqtt-bar host="broker.mqttdashboard.com" port="8000" topic="/testing"&gt;&lt;/mqtt-bar&gt;
           </pre>
+          <p>Note that if you send a payload in the form Kitchen=71.5 and then another in that same form, Bedroom=70.2, you will get 2 bars labeled Kitchen and Bedroom with their corresponding values</p>
           <div>
             <mqtt-bar host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
               topic="MQTTBootstrap/Testing"
@@ -144,6 +145,7 @@
           <pre>
             &lt;mqtt-doughnut host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"&gt;&lt;/mqtt-doughnut&gt;
           </pre>
+          <p>Note that the same (name)=(value) format that works for bar charts works for doughnut charts.  Also note the max-value attribute that specifies the size of the doughnut (useful if there is only one segment).
           <div>
             <mqtt-doughnut host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
               topic="MQTTBootstrap/Testing"
@@ -163,7 +165,7 @@
           <div>
             <mqtt-panel host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
               use-ssl="false">
-              <mqtt-on-off-switch topic="MQTTBootstrap/Testing"></mqtt-on-off-switch><br />
+              <mqtt-on-off-switch transform="modPayload" topic="MQTTBootstrap/Testing"></mqtt-on-off-switch><br />
               <mqtt-on-off-switch topic="MQTTBootstrap/Testing"></mqtt-on-off-switch><br />
               <mqtt-publisher topic="MQTTBootstrap/Testing"></mqtt-publisher><br />
               <mqtt-publisher topic="MQTTBootstrap/Testing"></mqtt-publisher><br />
@@ -172,6 +174,20 @@
             </mqtt-panel>
           </div>
         </form>
+        <h2>Other directive attributes</h2>
+        <dt>user</dt>
+        <dd>if your MQTT broker requires username/password, put your username here</dd>
+        <dt>password</dt>
+        <dd>if your MQTT broker requires username/password, put your password here</dd>
+        <dt>client-id</dt>
+        <dd>if you would like to specify a specific client-id, specify it in this attribute</dd>
+        <dt>transform</dt>
+        <dd>if your MQTT message payload needs some transformation to get to the raw integer input required by the charts, create a function in global scope (at the root level of a javascript file or the HTML file itself) and put the name of that function here.  That function takes only a string (the MQTT message payload) and returns a string (the transformed payload with just an number).
+        </dd>
+        <dt>use-ssl</dt>
+        <dd>whether or not to use SSL when connecting to the broker</dd>
+        <h3>Any questions or comments please email <a href="mailto:paul.caponetti@gmail.com">paul.caponetti@gmail.com!</a></h3>
+
       </div>
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -184,5 +200,11 @@
       <script src="js/services/mqtt.js"></script>
       <script src="js/main.js"></script>
       <script src="dist/mqttControls.full.js"></script>
+      <script>
+        var modPayload = function(msg){
+          console.log('modifying payload: ' + msg);
+          return msg;
+        }
+      </script>
     </body>
     </html>

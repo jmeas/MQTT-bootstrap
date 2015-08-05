@@ -41,7 +41,7 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 		    };
 		    this.ready = function(){
 		    	// TODO: figure out why this has to be root scope
-	    		$rootScope.$broadcast('ready-to-connect', {});
+	    		$scope.$broadcast('ready-to-connect', {});
 		    };
 		}],
 		link: function(scope, element, attributes, ctrl){
@@ -53,5 +53,8 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
       scope.clientId = attributes.clientId;
 			ctrl.ready();
 		},
+    transclude: true,
+    template: "<div ng-transclude></div>",
+    replace: true
 	}
 });
