@@ -87,10 +87,9 @@
             &lt;mqtt-time-series host="broker.mqttdashboard.com" port="8000" topic="/ts" max-points="40" interval="250"&gt;&lt;/mqtt-time-series&gt;
           </pre>
           <div>
-            <mqtt-time-series host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
-              use-ssl="true" max-points="40" interval="500"></mqtt-time-series>
+            <mqtt-time-series host="broker.mqttdashboard.com" port="8000"
+            topic="MQTTBootstrap/Testing"
+            use-ssl="false" max-points="40" interval="500"></mqtt-time-series>
           </div>
 
           <h2>On/Off Switches</h2>
@@ -100,16 +99,14 @@
           </pre>
           <p>Note that if you create two of these on the same page they will mirror each other because each control that publishes to a topic also subscribes to that topic.  See the below example:</p>
           <div style="clear:both">
-            <mqtt-on-off-switch host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
-              use-ssl="true"></mqtt-on-off-switch>
+            <mqtt-on-off-switch host="broker.mqttdashboard.com" port="8000"
+            topic="MQTTBootstrap/Testing"
+            use-ssl="false"></mqtt-on-off-switch>
           </div>
           <div style="clear:both">
-            <mqtt-on-off-switch host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
-              use-ssl="true"></mqtt-on-off-switch>
+            <mqtt-on-off-switch host="broker.mqttdashboard.com" port="8000"
+            topic="MQTTBootstrap/Testing"
+            use-ssl="false"></mqtt-on-off-switch>
           </div>
 
           <h2>Text Entry</h2>
@@ -119,100 +116,98 @@
           </pre>
           <p>Try typing in a number in one of the following text boxes and see what happens when you publish!</p>
           <div style="clear:both">
-            <mqtt-publisher host="broker.xively.com" port="443" client-id="a98750d3-2411-4b5e-8b94-e6e86e0c9823"
-              user="a98750d3-2411-4b5e-8b94-e6e86e0c9823" password="j7leed8Oy54mEgtqroQFeIudiulBS+81blGjaoA0H3Y="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
-              use-ssl="true">
-            </mqtt-publisher>
-          </div>
-          <div style="clear:both">
-            <mqtt-publisher host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
-              use-ssl="true">
-            </mqtt-publisher>
-          </div>
-
-          <h2>Bar Chart</h2>
-          <p>Create a quick single bar chart with a tag like the following:</p>
-          <pre>
-            &lt;mqtt-bar host="broker.mqttdashboard.com" port="8000" topic="/testing"&gt;&lt;/mqtt-bar&gt;
-          </pre>
-          <p>Note that if you send a payload in the form Kitchen=71.5 and then another in that same form, Bedroom=70.2, you will get 2 bars labeled Kitchen and Bedroom with their corresponding values</p>
-          <div>
-            <mqtt-bar host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
-              use-ssl="true"></mqtt-bar>
-          </div>
-
-          <h2>Doughnut Chart</h2>
-          <p>Create a doughnut chart with a tag like the following:</p>
-          <pre>
-            &lt;mqtt-doughnut host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"&gt;&lt;/mqtt-doughnut&gt;
-          </pre>
-          <p>Note that the same (name)=(value) format that works for bar charts works for doughnut charts.  Also note the max-value attribute that specifies the size of the doughnut (useful if there is only one segment).
-          <div>
-            <mqtt-doughnut host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
-              use-ssl="true" max-value="200"></mqtt-doughnut>
-          </div>
-
-          <h2>MQTT Panel</h2>
-          <p>Create a few controls all based on the same MQTT connection information</p>
-          <pre>
-            &lt;mqtt-panel host="broker.mqttdashboard.com" port="8000"&gt;
-              &lt;mqtt-on-off-switch host="broker.mqttdashboard.com" port="8000" topic="/onOrOff"&gt;&lt;/mqtt-on-off-switch&gt;
-              &lt;mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"&gt;&lt;/mqtt-publisher&gt;
-              &lt;mqtt-bar topic="/testing">&lt;/mqtt-bar&gt;
-              &lt;mqtt-doughnut topic="/testing" max-value="200"&gt;&lt;/mqtt-doughnut&gt;
-            &lt;/mqtt-panel&gt;
-          </pre>
-          <div>
-            <mqtt-panel host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              use-ssl="true">
-              <mqtt-on-off-switch transform="modPayload" topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-on-off-switch><br />
-              <mqtt-on-off-switch topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-on-off-switch><br />
-              <mqtt-publisher topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-publisher><br />
-              <mqtt-publisher topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-publisher><br />
-              <mqtt-bar topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-bar>
-              <mqtt-doughnut topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage" max-value="200"></mqtt-doughnut>
-            </mqtt-panel>
-          </div>
-        </form>
-        <h2>Other directive attributes</h2>
-        <dt>user</dt>
-        <dd>if your MQTT broker requires username/password, put your username here</dd>
-        <dt>password</dt>
-        <dd>if your MQTT broker requires username/password, put your password here</dd>
-        <dt>client-id</dt>
-        <dd>if you would like to specify a specific client-id, specify it in this attribute</dd>
-        <dt>transform</dt>
-        <dd>if your MQTT message payload needs some transformation to get to the raw integer input required by the charts, create a function in global scope (at the root level of a javascript file or the HTML file itself) and put the name of that function here.  That function takes only a string (the MQTT message payload) and returns a string (the transformed payload with just an number).
-        </dd>
-        <dt>use-ssl</dt>
-        <dd>whether or not to use SSL when connecting to the broker</dd>
-        <h3>Any questions or comments please email <a href="mailto:paul.caponetti@gmail.com">paul.caponetti@gmail.com!</a></h3>
-
+            <mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="MQTTBootstrap/Testing"
+            use-ssl="false">
+          </mqtt-publisher>
+        </div>
+        <div style="clear:both">
+          <mqtt-publisher host="broker.mqttdashboard.com" port="8000"
+          topic="MQTTBootstrap/Testing"
+          use-ssl="false">
+        </mqtt-publisher>
       </div>
 
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="../jquery/dist/jquery.min.js"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-      <script src="../angular/angular.min.js"></script> 
-      <script src="../Chart.js/Chart.js"></script>
-      <script src="../bower-paho-mqtt/src/mqttws31.js"></script>
-      <script src="js/services/mqtt.js"></script>
-      <script src="js/main.js"></script>
-      <script src="dist/mqttControls.full.js"></script>
-      <script>
-        var modPayload = function(msg){
-          console.log('modifying payload: ' + msg);
-          return msg;
-        }
-      </script>
-    </body>
-    </html>
+      <h2>Bar Chart</h2>
+      <p>Create a quick single bar chart with a tag like the following:</p>
+      <pre>
+        &lt;mqtt-bar host="broker.mqttdashboard.com" port="8000" topic="/testing"&gt;&lt;/mqtt-bar&gt;
+      </pre>
+      <p>Note that if you send a payload in the form Kitchen=71.5 and then another in that same form, Bedroom=70.2, you will get 2 bars labeled Kitchen and Bedroom with their corresponding values</p>
+      <div>
+        <mqtt-bar host="broker.mqttdashboard.com" port="8000"
+        topic="MQTTBootstrap/Testing"
+        use-ssl="false"></mqtt-bar>
+      </div>
+
+      <h2>Doughnut Chart</h2>
+      <p>Create a doughnut chart with a tag like the following:</p>
+      <pre>
+        &lt;mqtt-doughnut host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"&gt;&lt;/mqtt-doughnut&gt;
+      </pre>
+      <p>Note that the same (name)=(value) format that works for bar charts works for doughnut charts.  Also note the max-value attribute that specifies the size of the doughnut (useful if there is only one segment).
+        <div>
+          <mqtt-doughnut host="broker.mqttdashboard.com" port="8000"
+          topic="MQTTBootstrap/Testing"
+          use-ssl="false" max-value="200"></mqtt-doughnut>
+        </div>
+
+        <h2>MQTT Panel</h2>
+        <p>Create a few controls all based on the same MQTT connection information</p>
+        <pre>
+          &lt;mqtt-panel host="broker.mqttdashboard.com" port="8000"&gt;
+          &lt;mqtt-on-off-switch host="broker.mqttdashboard.com" port="8000" topic="/onOrOff"&gt;&lt;/mqtt-on-off-switch&gt;
+          &lt;mqtt-publisher host="broker.mqttdashboard.com" port="8000" topic="/testing" max-value="200"&gt;&lt;/mqtt-publisher&gt;
+          &lt;mqtt-bar topic="/testing">&lt;/mqtt-bar&gt;
+          &lt;mqtt-doughnut topic="/testing" max-value="200"&gt;&lt;/mqtt-doughnut&gt;
+          &lt;/mqtt-panel&gt;
+        </pre>
+        <div>
+          <mqtt-panel host="broker.mqttdashboard.com" port="8000"
+          use-ssl="false">
+          <mqtt-on-off-switch transform="modPayload" topic="MQTTBootstrap/Testing"></mqtt-on-off-switch><br />
+          <mqtt-on-off-switch topic="MQTTBootstrap/Testing"></mqtt-on-off-switch><br />
+          <mqtt-publisher topic="MQTTBootstrap/Testing"></mqtt-publisher><br />
+          <mqtt-publisher topic="MQTTBootstrap/Testing"></mqtt-publisher><br />
+          <mqtt-bar topic="MQTTBootstrap/Testing"></mqtt-bar>
+          <mqtt-doughnut topic="MQTTBootstrap/Testing" max-value="200"></mqtt-doughnut>
+        </mqtt-panel>
+      </div>
+    </form>
+    <h2>Other directive attributes</h2>
+    <dt>user</dt>
+    <dd>if your MQTT broker requires username/password, put your username here</dd>
+    <dt>password</dt>
+    <dd>if your MQTT broker requires username/password, put your password here</dd>
+    <dt>client-id</dt>
+    <dd>if you would like to specify a specific client-id, specify it in this attribute</dd>
+    <dt>transform</dt>
+    <dd>if your MQTT message payload needs some transformation to get to the raw integer input required by the charts, create a function in global scope (at the root level of a javascript file or the HTML file itself) and put the name of that function here.  That function takes only a string (the MQTT message payload) and returns a string (the transformed payload with just an number).
+    </dd>
+    <dt>use-ssl</dt>
+    <dd>whether or not to use SSL when connecting to the broker</dd>
+    <dt>width</dt>
+    <dd>width of control (only for graphs)</dd>
+    <dt>height</dt>
+    <dd>height of control (only for graphs)</dd>
+    <h3>Any questions or comments please email <a href="mailto:paul.caponetti@gmail.com">paul.caponetti@gmail.com!</a></h3>
+
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="../jquery/dist/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../angular/angular.min.js"></script> 
+  <script src="../Chart.js/Chart.js"></script>
+  <script src="../bower-paho-mqtt/src/mqttws31.js"></script>
+  <script src="js/services/mqtt.js"></script>
+  <script src="js/main.js"></script>
+  <script src="dist/mqttControls.full.js"></script>
+  <script>
+  var modPayload = function(msg){
+    console.log('modifying payload: ' + msg);
+    return msg;
+  }
+  </script>
+</body>
+</html>
