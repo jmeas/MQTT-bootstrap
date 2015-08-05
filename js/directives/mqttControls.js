@@ -1,4 +1,4 @@
-angular.module("Mqtt.Controls", ["Mqtt.Services"])
+angular.module('Mqtt.Controls', ['Mqtt.Services'])
 .directive('mqttPanel', function(){
 	return {
 		restrict: 'E',
@@ -54,7 +54,7 @@ angular.module("Mqtt.Controls", ["Mqtt.Services"])
 			ctrl.ready();
 		},
     transclude: true,
-    template: "<div ng-transclude></div>",
+    template: '<div ng-transclude></div>',
     replace: true
 	}
 });

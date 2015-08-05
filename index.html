@@ -87,9 +87,10 @@
             &lt;mqtt-time-series host="broker.mqttdashboard.com" port="8000" topic="/ts" max-points="40" interval="250"&gt;&lt;/mqtt-time-series&gt;
           </pre>
           <div>
-            <mqtt-time-series host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              topic="MQTTBootstrap/Testing"
-              use-ssl="false" max-points="40" interval="500"></mqtt-time-series>
+            <mqtt-time-series host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
+              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
+              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
+              use-ssl="true" max-points="40" interval="500"></mqtt-time-series>
           </div>
 
           <h2>On/Off Switches</h2>
@@ -99,14 +100,16 @@
           </pre>
           <p>Note that if you create two of these on the same page they will mirror each other because each control that publishes to a topic also subscribes to that topic.  See the below example:</p>
           <div style="clear:both">
-            <mqtt-on-off-switch host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              topic="MQTTBootstrap/Testing"
-              use-ssl="false"></mqtt-on-off-switch>
+            <mqtt-on-off-switch host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
+              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
+              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
+              use-ssl="true"></mqtt-on-off-switch>
           </div>
           <div style="clear:both">
-            <mqtt-on-off-switch host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              topic="MQTTBootstrap/Testing"
-              use-ssl="false"></mqtt-on-off-switch>
+            <mqtt-on-off-switch host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
+              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
+              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
+              use-ssl="true"></mqtt-on-off-switch>
           </div>
 
           <h2>Text Entry</h2>
@@ -116,15 +119,17 @@
           </pre>
           <p>Try typing in a number in one of the following text boxes and see what happens when you publish!</p>
           <div style="clear:both">
-            <mqtt-publisher host="broker.mqttdashboard.com" port="8000" client-id="a98750d3-2411-4b5e-8b94-e6e86e0c9823"
-              topic="MQTTBootstrap/Testing"
-              use-ssl="false">
+            <mqtt-publisher host="broker.xively.com" port="443" client-id="a98750d3-2411-4b5e-8b94-e6e86e0c9823"
+              user="a98750d3-2411-4b5e-8b94-e6e86e0c9823" password="j7leed8Oy54mEgtqroQFeIudiulBS+81blGjaoA0H3Y="
+              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
+              use-ssl="true">
             </mqtt-publisher>
           </div>
           <div style="clear:both">
-            <mqtt-publisher host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              topic="MQTTBootstrap/Testing"
-              use-ssl="false">
+            <mqtt-publisher host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
+              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
+              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
+              use-ssl="true">
             </mqtt-publisher>
           </div>
 
@@ -135,9 +140,10 @@
           </pre>
           <p>Note that if you send a payload in the form Kitchen=71.5 and then another in that same form, Bedroom=70.2, you will get 2 bars labeled Kitchen and Bedroom with their corresponding values</p>
           <div>
-            <mqtt-bar host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              topic="MQTTBootstrap/Testing"
-              use-ssl="false"></mqtt-bar>
+            <mqtt-bar host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
+              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
+              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
+              use-ssl="true"></mqtt-bar>
           </div>
 
           <h2>Doughnut Chart</h2>
@@ -147,9 +153,10 @@
           </pre>
           <p>Note that the same (name)=(value) format that works for bar charts works for doughnut charts.  Also note the max-value attribute that specifies the size of the doughnut (useful if there is only one segment).
           <div>
-            <mqtt-doughnut host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              topic="MQTTBootstrap/Testing"
-              use-ssl="false" max-value="200"></mqtt-doughnut>
+            <mqtt-doughnut host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
+              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
+              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
+              use-ssl="true" max-value="200"></mqtt-doughnut>
           </div>
 
           <h2>MQTT Panel</h2>
@@ -163,14 +170,15 @@
             &lt;/mqtt-panel&gt;
           </pre>
           <div>
-            <mqtt-panel host="broker.mqttdashboard.com" port="8000" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              use-ssl="false">
-              <mqtt-on-off-switch transform="modPayload" topic="MQTTBootstrap/Testing"></mqtt-on-off-switch><br />
-              <mqtt-on-off-switch topic="MQTTBootstrap/Testing"></mqtt-on-off-switch><br />
-              <mqtt-publisher topic="MQTTBootstrap/Testing"></mqtt-publisher><br />
-              <mqtt-publisher topic="MQTTBootstrap/Testing"></mqtt-publisher><br />
-              <mqtt-bar topic="MQTTBootstrap/Testing"></mqtt-bar>
-              <mqtt-doughnut topic="MQTTBootstrap/Testing" max-value="200"></mqtt-doughnut>
+            <mqtt-panel host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
+              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
+              use-ssl="true">
+              <mqtt-on-off-switch transform="modPayload" topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-on-off-switch><br />
+              <mqtt-on-off-switch topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-on-off-switch><br />
+              <mqtt-publisher topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-publisher><br />
+              <mqtt-publisher topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-publisher><br />
+              <mqtt-bar topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"></mqtt-bar>
+              <mqtt-doughnut topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage" max-value="200"></mqtt-doughnut>
             </mqtt-panel>
           </div>
         </form>
