@@ -1,4 +1,3 @@
-
 angular.module("Mqtt.Services", [])
   .factory("mqtt", function() {
     var mqttObj = {};
@@ -64,17 +63,17 @@ angular.module("Mqtt.Services", [])
                 mqttObj.sendMessage(tse[x].msg, tse[x].topic, host, port, user, pass, useSSL);
               }
             }
-          }
-          , onFailure: function() {
+          },
+          onFailure: function() {
             // auto-retry
             retry = setInterval(function() {
               console.log('failed connection to MQTT broker ' + host + ', retrying now')
               mqttObj.connect(host, port, user, pass, useSSL, clientId);
             }, 5000);
-          }
-          , userName: user || ''
-          , password: pass || ''
-          , useSSL: useSSL
+          },
+          userName: user || '',
+          password: pass || '',
+          useSSL: useSSL
         });
       }
     }
@@ -88,8 +87,8 @@ angular.module("Mqtt.Services", [])
         }
         // TODO: add limits to this hashtable
         toSubscribe[key].push({
-          topic: topic
-          , callback: callback
+          topic: topic,
+          callback: callback
         });
         // do the connect
         mqttObj.connect(host, port, user, pass, useSSL, clientId);
@@ -113,8 +112,8 @@ angular.module("Mqtt.Services", [])
         }
         // TODO: add limits to this hashtable
         toSend[key].push({
-          msg: msg
-          , topic: topic
+          msg: msg,
+          topic: topic
         });
       } else {
         console.log('sending "' + msg + '"');

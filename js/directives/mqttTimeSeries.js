@@ -1,26 +1,24 @@
-
 angular.module('Mqtt.Controls')
   .directive('mqttTimeSeries', function() {
     return {
-      restrict: 'E'
-      , scope: {}
-      , require: '^?mqttPanel'
-      , controller: ['$scope', 'mqtt', function($scope, mqtt) {
-        ///////////////////////////////////////////////////////
-        // only a fallback for if this tag isn't in an mqtt-panel
-        $scope.connect = function(host, port, user, pass
-            , useSSL, topic, clientId, callback) {
+      restrict: 'E',
+      scope: {},
+      require: '^?mqttPanel',
+      controller: ['$scope', 'mqtt',
+        function($scope, mqtt) {
+          ///////////////////////////////////////////////////////
+          // only a fallback for if this tag isn't in an mqtt-panel
+          $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
           }
           ///////////////////////////////////////////////////////
-        $scope.chart = undefined;
-        $scope.uniqueId = 'myChart' + $scope.$id;
-      }]
-      , link: function(scope, element, attributes, mqttPanelController) {
+          $scope.chart = undefined;
+          $scope.uniqueId = 'myChart' + $scope.$id;
+        }
+      ],
+      link: function(scope, element, attributes, mqttPanelController) {
         var maxPoints = 20;
-        scope.width = attributes.width || "600";
-        scope.height = attributes.height || "400";
         if (attributes.maxPoints && parseInt(attributes.maxPoints) != NaN) {
           maxPoints = parseInt(attributes.maxPoints);
         }
@@ -43,16 +41,16 @@ angular.module('Mqtt.Controls')
             // new chart, create it
             scope.chart = new Chart(ctx)
               .Line({
-                labels: [getDate()]
-                , datasets: [{
-                  label: 'main'
-                  , fillColor: 'rgba(220,220,220,0.5)'
-                  , strokeColor: 'rgba(220,220,220,0.8)'
-                  , highlightFill: 'rgba(220,220,220,0.75)'
-                  , highlightStroke: 'rgba(220,220,220,1)'
-                  , data: [tmp]
-                }]
-              , }, {
+                labels: [getDate()],
+                datasets: [{
+                  label: 'main',
+                  fillColor: 'rgba(220,220,220,0.5)',
+                  strokeColor: 'rgba(220,220,220,0.8)',
+                  highlightFill: 'rgba(220,220,220,0.75)',
+                  highlightStroke: 'rgba(220,220,220,1)',
+                  data: [tmp]
+                }],
+              }, {
                 animationSteps: 50
               });
           } else {
@@ -67,18 +65,15 @@ angular.module('Mqtt.Controls')
         }, interval);
 
         if (attributes.host && attributes.host.length) {
-          scope.connect(attributes.host, parseInt(attributes.port)
-            , attributes.user, attributes.password
-            , attributes.useSsl == 'true', attributes.topic
-            , attributes.clientId, callback);
+          scope.connect(attributes.host, parseInt(attributes.port), attributes.user, attributes.password, attributes.useSsl == 'true', attributes.topic, attributes.clientId, callback);
         } else if (mqttPanelController != undefined) {
           scope.$on('ready-to-connect', function(event, arg) {
             mqttPanelController.connect(attributes.topic, callback);
           });
         }
-      }
-      , replace: true
-      , template: '<canvas id="{{::uniqueId}}" width="{{width}}" height="{{height}}"></canvas>'
+      },
+      replace: true,
+      template: '<canvas id="{{::uniqueId}}"></canvas>'
     }
   });
 var getDate = function() {

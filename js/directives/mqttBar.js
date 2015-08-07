@@ -1,28 +1,25 @@
-
 angular.module('Mqtt.Controls')
   .directive('mqttBar', function() {
     return {
-      restrict: 'E'
-      , scope: {}
-      , require: '^?mqttPanel'
-      , controller: ['$scope', 'mqtt', function($scope, mqtt) {
-        ///////////////////////////////////////////////////////
-        // only a fallback for if this tag isn't in an mqtt-panel
-        $scope.connect = function(host, port, user, pass
-            , useSSL, topic, clientId, callback) {
+      restrict: 'E',
+      scope: {},
+      require: '^?mqttPanel',
+      controller: ['$scope', 'mqtt',
+        function($scope, mqtt) {
+          ///////////////////////////////////////////////////////
+          // only a fallback for if this tag isn't in an mqtt-panel
+          $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
           }
           ///////////////////////////////////////////////////////
-        $scope.chart = undefined;
-        $scope.uniqueId = 'myChart' + $scope.$id;
-      }]
-      , link: function(scope, element, attributes, mqttPanelController) {
+          $scope.uniqueId = 'myChart' + $scope.$id;
+        }
+      ],
+      link: function(scope, element, attributes, mqttPanelController) {
         var callback = function(message) {
           // parse msg, can be just a number or <name>=<value>
           var tmp;
-          scope.width = attributes.width || "400";
-          scope.height = attributes.height || "600";
           var nm = message.destinationName;
           if (message.payloadString.indexOf('=') > 0) {
             var data = message.payloadString.split('=');
@@ -33,23 +30,23 @@ angular.module('Mqtt.Controls')
           }
           if (nm.length > 40) nm = nm.substring(0, 40) + '...';
 
-          // get chart
-          var ctx = document.getElementById(scope.uniqueId)
-            .getContext('2d');
+
           if (scope.chart == undefined) {
-            // new chart, create it
+            // get chart
+            var ctx = document.getElementById(scope.uniqueId)
+              .getContext('2d'); // new chart, create it
             scope.chart = new Chart(ctx)
               .Bar({
-                labels: [nm]
-                , datasets: [{
-                  label: 'main'
-                  , fillColor: 'rgba(220,220,220,0.5)'
-                  , strokeColor: 'rgba(220,220,220,0.8)'
-                  , highlightFill: 'rgba(220,220,220,0.75)'
-                  , highlightStroke: 'rgba(220,220,220,1)'
-                  , data: [tmp]
-                }]
-              , }, {
+                labels: [nm],
+                datasets: [{
+                  label: 'main',
+                  fillColor: 'rgba(220,220,220,0.5)',
+                  strokeColor: 'rgba(220,220,220,0.8)',
+                  highlightFill: 'rgba(220,220,220,0.75)',
+                  highlightStroke: 'rgba(220,220,220,1)',
+                  data: [tmp]
+                }],
+              }, {
                 animationSteps: 50
               });
           } else {
@@ -71,17 +68,14 @@ angular.module('Mqtt.Controls')
         };
 
         if (attributes.host && attributes.host.length) {
-          scope.connect(attributes.host, parseInt(attributes.port)
-            , attributes.user, attributes.password
-            , attributes.useSsl == 'true', attributes.topic
-            , attributes.clientId, callback);
+          scope.connect(attributes.host, parseInt(attributes.port), attributes.user, attributes.password, attributes.useSsl == 'true', attributes.topic, attributes.clientId, callback);
         } else if (mqttPanelController != undefined) {
           scope.$on('ready-to-connect', function(event, arg) {
             mqttPanelController.connect(attributes.topic, callback);
           });
         }
-      }
-      , replace: true
-      , template: '<canvas id="{{::uniqueId}}" width="{{width}}" height="{{height}}"></canvas>'
+      },
+      replace: true,
+      template: '<canvas id="{{::uniqueId}}"></canvas>'
     }
   });

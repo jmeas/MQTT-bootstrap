@@ -1,26 +1,23 @@
-
 angular.module('Mqtt.Controls')
   .directive('mqttDoughnut', function() {
     return {
-      restrict: 'E'
-      , scope: {}
-      , require: '^?mqttPanel'
-      , controller: ['$scope', 'mqtt', function($scope, mqtt) {
-        ///////////////////////////////////////////////////////
-        // only a fallback for if this tag isn't in an mqtt-panel
-        $scope.connect = function(host, port, user, pass
-            , useSSL, topic, clientId, callback) {
+      restrict: 'E',
+      scope: {},
+      require: '^?mqttPanel',
+      controller: ['$scope', 'mqtt',
+        function($scope, mqtt) {
+          ///////////////////////////////////////////////////////
+          // only a fallback for if this tag isn't in an mqtt-panel
+          $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
           }
           ///////////////////////////////////////////////////////
-        $scope.chart = undefined;
-        $scope.uniqueId = 'myChart' + $scope.$id;
-      }]
-      , link: function(scope, element, attributes, mqttPanelController) {
+          $scope.uniqueId = 'myChart' + $scope.$id;
+        }
+      ],
+      link: function(scope, element, attributes, mqttPanelController) {
         var max = attributes.maxValue;
-        scope.width = attributes.width || "400";
-        scope.height = attributes.height || "600";
         var callback = function(message) {
           var tmp;
           var nm = message.destinationName;
@@ -39,15 +36,15 @@ angular.module('Mqtt.Controls')
           if (scope.chart == undefined) {
             scope.chart = new Chart(ctx)
               .Doughnut([{
-                value: tmp
-                , color: '#46BFBD'
-                , highlight: '#5AD3D1'
-                , label: nm
+                value: tmp,
+                color: '#46BFBD',
+                highlight: '#5AD3D1',
+                label: nm
               }, {
-                value: max - tmp
-                , color: '#FFFFFF'
-                , highlight: '#FFFFFF'
-                , label: 'empty'
+                value: max - tmp,
+                color: '#FFFFFF',
+                highlight: '#FFFFFF',
+                label: 'empty'
               }], {
                 animationSteps: 50
               });
@@ -69,10 +66,10 @@ angular.module('Mqtt.Controls')
             }
             if (!found) {
               scope.chart.addData({
-                value: tmp
-                , color: '#46BFBD'
-                , highlight: '#5AD3D1'
-                , label: nm
+                value: tmp,
+                color: '#46BFBD',
+                highlight: '#5AD3D1',
+                label: nm
               });
               sum += tmp;
             }
@@ -82,17 +79,14 @@ angular.module('Mqtt.Controls')
           scope.$apply();
         };
         if (attributes.host && attributes.host.length) {
-          scope.connect(attributes.host, parseInt(attributes.port)
-            , attributes.user, attributes.password
-            , attributes.useSsl == 'true', attributes.topic
-            , attributes.clientId, callback);
+          scope.connect(attributes.host, parseInt(attributes.port), attributes.user, attributes.password, attributes.useSsl == 'true', attributes.topic, attributes.clientId, callback);
         } else if (mqttPanelController != undefined) {
           scope.$on('ready-to-connect', function(event, arg) {
             mqttPanelController.connect(attributes.topic, callback);
           });
         }
-      }
-      , replace: true
-      , template: '<canvas id="{{::uniqueId}}" width="{{width}}" height="{{height}}"></canvas>'
+      },
+      replace: true,
+      template: '<canvas id="{{::uniqueId}}"></canvas>'
     }
   });
