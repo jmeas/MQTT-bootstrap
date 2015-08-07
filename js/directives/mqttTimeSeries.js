@@ -19,11 +19,11 @@ angular.module('Mqtt.Controls')
       ],
       link: function(scope, element, attributes, mqttPanelController) {
         var maxPoints = 20;
-        if (attributes.maxPoints && parseInt(attributes.maxPoints) != NaN) {
+        if (attributes.maxPoints && !isNaN(parseInt(attributes.maxPoints))) {
           maxPoints = parseInt(attributes.maxPoints);
         }
         var interval = 500;
-        if (attributes.interval && parseInt(attributes.interval) != NaN) {
+        if (attributes.interval && !isNaN(parseInt(attributes.interval))) {
           interval = parseInt(attributes.interval);
         }
         scope.curValue = 0;
