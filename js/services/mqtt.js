@@ -1,5 +1,5 @@
-angular.module("Mqtt.Services", [])
-  .factory("mqtt", function() {
+angular.module('Mqtt.Services', [])
+  .factory('mqtt', function() {
     var mqttObj = {};
     var toSubscribe = {};
     var toSend = {};
@@ -23,7 +23,7 @@ angular.module("Mqtt.Services", [])
         // set callback handlers
         client.onConnectionLost = function(responseObject) {
           if (responseObject.errorCode !== 0) {
-            console.log("onConnectionLost:" + responseObject.errorMessage);
+            console.log('onConnectionLost:' + responseObject.errorMessage);
           }
           // auto-reconnect
           retry = setInterval(function() {
@@ -31,8 +31,8 @@ angular.module("Mqtt.Services", [])
           }, 5000);
         };
         client.onMessageArrived = function(message) {
-          console.log("onMessageArrived:" + message.payloadString);
-          var newKey = key + "||" + message.destinationName;
+          console.log('onMessageArrived:' + message.payloadString);
+          var newKey = key + '||' + message.destinationName;
           var subs = subscriptions[newKey];
           if (subs != undefined) {
             for (var sub = 0; sub < subs.length; sub++) {
@@ -47,7 +47,7 @@ angular.module("Mqtt.Services", [])
           onSuccess: function() {
             // got connected, kill auto-retry
             clearInterval(retry);
-            console.log("onConnect");
+            console.log('onConnect');
             connections[key] = client;
             currentAttempts[key] = undefined;
             var ts = toSubscribe[key];
@@ -94,7 +94,7 @@ angular.module("Mqtt.Services", [])
         mqttObj.connect(host, port, user, pass, useSSL, clientId);
       } else {
         client.subscribe(topic);
-        var newKey = key + "||" + topic;
+        var newKey = key + '||' + topic;
         if (subscriptions[newKey] == undefined) {
           subscriptions[newKey] = [];
         }
@@ -127,7 +127,7 @@ angular.module("Mqtt.Services", [])
     // called when the client loses its connection
     function onConnectionLost(responseObject) {
       if (responseObject.errorCode !== 0) {
-        console.log("onConnectionLost:" + responseObject.errorMessage);
+        console.log('onConnectionLost:' + responseObject.errorMessage);
       }
     };
 
