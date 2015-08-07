@@ -20,7 +20,7 @@ angular.module('Mqtt.Controls').directive('mqttOnOffSwitch', function() {
           pass = passp;
           useSSL = useSSLp;
           topic = topicp;
-        }
+        };
         $scope.sendMessage = function() {
           mqtt.sendMessage(
             document.getElementById($scope.uniqueId).checked ? 'on' : 'off',
@@ -54,11 +54,11 @@ angular.module('Mqtt.Controls').directive('mqttOnOffSwitch', function() {
             mqttPanelController.sendMessage(
               attributes.topic,
               document.getElementById(scope.uniqueId).checked ? 'on' : 'off');
-          }
+          };
         });
       }
     },
     replace: true,
     template: '<form action=".">' + '	<input type="checkbox" id="{{::uniqueId}}" ng-click="sendMessage()"></input>' + ' <label for="{{::uniqueId}}">{{topic}}</label>' + '</form>'
-  }
+  };
 });

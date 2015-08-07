@@ -11,7 +11,7 @@ angular.module('Mqtt.Controls')
           $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
-          }
+          };
           ///////////////////////////////////////////////////////
           $scope.uniqueId = 'myChart' + $scope.$id;
         }
@@ -88,5 +88,5 @@ angular.module('Mqtt.Controls')
       },
       replace: true,
       template: '<canvas id="{{::uniqueId}}"></canvas>'
-    }
+    };
   });
