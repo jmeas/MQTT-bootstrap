@@ -18,7 +18,7 @@ angular.module('Mqtt.Controls')
             pass = passp;
             useSSL = useSSLp;
             topic = topicp;
-          }
+          };
           $scope.sendMessage = function() {
             mqtt.sendMessage(
               document.getElementById($scope.uniqueId)
@@ -46,11 +46,11 @@ angular.module('Mqtt.Controls')
               mqttPanelController.sendMessage(
                 attributes.topic, document.getElementById(scope.uniqueId)
                 .value);
-            }
+            };
           });
         }
       },
       replace: true,
       template: '<form ng-submit="sendMessage()">' + '  <input type="text" id="{{::uniqueId}}"></input>' + '  <input type="submit" value="Publish" />' + '</form>'
-    }
+    };
   });

@@ -17,6 +17,6 @@ var app = angular.module('MqttDash', ['Mqtt.Controls'])
         'pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU=',
         true,
         '69e9ea4e-deea-4a03-b8b8-7b15f5c7a541');
-      mqtt.sendMessage()
+      mqtt.sendMessage();
     }, 1000);
   });

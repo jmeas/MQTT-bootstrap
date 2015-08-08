@@ -67,7 +67,7 @@ angular.module('Mqtt.Services', [])
           onFailure: function() {
             // auto-retry
             retry = setInterval(function() {
-              console.log('failed connection to MQTT broker ' + host + ', retrying now')
+              console.log('failed connection to MQTT broker ' + host + ', retrying now');
               mqttObj.connect(host, port, user, pass, useSSL, clientId);
             }, 5000);
           },
@@ -76,10 +76,10 @@ angular.module('Mqtt.Services', [])
           useSSL: useSSL
         });
       }
-    }
+    };
 
     mqttObj.subscribe = function(topic, callback, host, port, user, pass, useSSL, clientId) {
-      var key = getHashKey(host, port, user, pass, useSSL)
+      var key = getHashKey(host, port, user, pass, useSSL);
       var client = connections[key];
       if (client == undefined) {
         if (toSubscribe[key] == undefined) {
@@ -100,10 +100,10 @@ angular.module('Mqtt.Services', [])
         }
         subscriptions[newKey].push(callback);
       }
-    }
+    };
 
     mqttObj.sendMessage = function(msg, topic, host, port, user, pass, useSSL) {
-      var key = getHashKey(host, port, user, pass, useSSL)
+      var key = getHashKey(host, port, user, pass, useSSL);
       var client = connections[key];
       if (client == undefined) {
         // allow for "offline" sending (queueing)
@@ -129,7 +129,7 @@ angular.module('Mqtt.Services', [])
       if (responseObject.errorCode !== 0) {
         console.log('onConnectionLost:' + responseObject.errorMessage);
       }
-    };
+    }
 
     function guid() {
       function s4() {

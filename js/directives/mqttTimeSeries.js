@@ -11,7 +11,7 @@ angular.module('Mqtt.Controls')
           $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
-          }
+          };
           ///////////////////////////////////////////////////////
           $scope.chart = undefined;
           $scope.uniqueId = 'myChart' + $scope.$id;
@@ -31,7 +31,7 @@ angular.module('Mqtt.Controls')
         var callback = function(message) {
           tmp = parseFloat(message.payloadString);
           scope.curValue = tmp;
-        }
+        };
         var tmp = 0;
         setInterval(function() {
           // get chart
@@ -74,10 +74,10 @@ angular.module('Mqtt.Controls')
       },
       replace: true,
       template: '<canvas id="{{::uniqueId}}"></canvas>'
-    }
+    };
   });
 var getDate = function() {
   var dt = new Date();
   var dtS = dt.getHours() + ':' + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : '' + dt.getMinutes()) + ':' + (dt.getSeconds() < 10 ? '0' + dt.getSeconds() : '' + dt.getSeconds());
   return dtS;
-}
+};

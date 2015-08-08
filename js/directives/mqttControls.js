@@ -57,5 +57,5 @@ angular.module('Mqtt.Controls', ['Mqtt.Services'])
       transclude: true,
       template: '<div ng-transclude></div>',
       replace: true
-    }
+    };
   });
