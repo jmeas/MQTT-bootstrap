@@ -57,7 +57,7 @@ angular.module('Mqtt.Controls', ['Mqtt.Services'])
       transclude: true,
       template: '<div ng-transclude></div>',
       replace: true
-    }
+    };
   });
 angular.module('Mqtt.Controls')
   .directive('mqttBar', function() {
@@ -72,7 +72,7 @@ angular.module('Mqtt.Controls')
           $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
-          }
+          };
           ///////////////////////////////////////////////////////
           $scope.uniqueId = 'myChart' + $scope.$id;
         }
@@ -106,7 +106,7 @@ angular.module('Mqtt.Controls')
                   highlightFill: 'rgba(220,220,220,0.75)',
                   highlightStroke: 'rgba(220,220,220,1)',
                   data: [tmp]
-                }],
+                }]
               }, {
                 animationSteps: 50
               });
@@ -138,7 +138,7 @@ angular.module('Mqtt.Controls')
       },
       replace: true,
       template: '<canvas id="{{::uniqueId}}"></canvas>'
-    }
+    };
   });
 angular.module('Mqtt.Controls')
   .directive('mqttDoughnut', function() {
@@ -153,7 +153,7 @@ angular.module('Mqtt.Controls')
           $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
-          }
+          };
           ///////////////////////////////////////////////////////
           $scope.uniqueId = 'myChart' + $scope.$id;
         }
@@ -230,7 +230,7 @@ angular.module('Mqtt.Controls')
       },
       replace: true,
       template: '<canvas id="{{::uniqueId}}"></canvas>'
-    }
+    };
   });
 angular.module('Mqtt.Controls')
   .directive('mqttPublisher', function() {
@@ -252,7 +252,7 @@ angular.module('Mqtt.Controls')
             pass = passp;
             useSSL = useSSLp;
             topic = topicp;
-          }
+          };
           $scope.sendMessage = function() {
             mqtt.sendMessage(
               document.getElementById($scope.uniqueId)
@@ -280,13 +280,13 @@ angular.module('Mqtt.Controls')
               mqttPanelController.sendMessage(
                 attributes.topic, document.getElementById(scope.uniqueId)
                 .value);
-            }
+            };
           });
         }
       },
       replace: true,
       template: '<form ng-submit="sendMessage()">' + '  <input type="text" id="{{::uniqueId}}"></input>' + '  <input type="submit" value="Publish" />' + '</form>'
-    }
+    };
   });
 angular.module('Mqtt.Controls').directive('mqttOnOffSwitch', function() {
   return {
@@ -310,7 +310,7 @@ angular.module('Mqtt.Controls').directive('mqttOnOffSwitch', function() {
           pass = passp;
           useSSL = useSSLp;
           topic = topicp;
-        }
+        };
         $scope.sendMessage = function() {
           mqtt.sendMessage(
             document.getElementById($scope.uniqueId).checked ? 'on' : 'off',
@@ -344,13 +344,13 @@ angular.module('Mqtt.Controls').directive('mqttOnOffSwitch', function() {
             mqttPanelController.sendMessage(
               attributes.topic,
               document.getElementById(scope.uniqueId).checked ? 'on' : 'off');
-          }
+          };
         });
       }
     },
     replace: true,
     template: '<form action=".">' + '	<input type="checkbox" id="{{::uniqueId}}" ng-click="sendMessage()"></input>' + ' <label for="{{::uniqueId}}">{{topic}}</label>' + '</form>'
-  }
+  };
 });
 angular.module('Mqtt.Controls')
   .directive('mqttTimeSeries', function() {
@@ -365,7 +365,7 @@ angular.module('Mqtt.Controls')
           $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
-          }
+          };
           ///////////////////////////////////////////////////////
           $scope.chart = undefined;
           $scope.uniqueId = 'myChart' + $scope.$id;
@@ -373,13 +373,11 @@ angular.module('Mqtt.Controls')
       ],
       link: function(scope, element, attributes, mqttPanelController) {
         var maxPoints = 20;
-        scope.width = attributes.width || "600";
-        scope.height = attributes.height || "400";
-        if (attributes.maxPoints && parseInt(attributes.maxPoints) != NaN) {
+        if (attributes.maxPoints && !isNaN(parseInt(attributes.maxPoints))) {
           maxPoints = parseInt(attributes.maxPoints);
         }
         var interval = 500;
-        if (attributes.interval && parseInt(attributes.interval) != NaN) {
+        if (attributes.interval && !isNaN(parseInt(attributes.interval))) {
           interval = parseInt(attributes.interval);
         }
         scope.curValue = 0;
@@ -387,7 +385,7 @@ angular.module('Mqtt.Controls')
         var callback = function(message) {
           tmp = parseFloat(message.payloadString);
           scope.curValue = tmp;
-        }
+        };
         var tmp = 0;
         setInterval(function() {
           // get chart
@@ -429,11 +427,48 @@ angular.module('Mqtt.Controls')
         }
       },
       replace: true,
-      template: '<canvas id="{{::uniqueId}}" width="{{width}}" height="{{height}}"></canvas>'
-    }
+      template: '<canvas id="{{::uniqueId}}"></canvas>'
+    };
   });
 var getDate = function() {
   var dt = new Date();
   var dtS = dt.getHours() + ':' + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : '' + dt.getMinutes()) + ':' + (dt.getSeconds() < 10 ? '0' + dt.getSeconds() : '' + dt.getSeconds());
   return dtS;
-}
+};
+angular.module('Mqtt.Controls')
+  .directive('mqttLabel', function() {
+    return {
+      restrict: 'E',
+      scope: {},
+      require: '^?mqttPanel',
+      controller: ['$scope', 'mqtt',
+        function($scope, mqtt) {
+          ///////////////////////////////////////////////////////
+          // only a fallback for if this tag isn't in an mqtt-panel
+          $scope.connect = function(hostp, portp, userp, passp, useSSLp, topicp, clientId, callback) {
+            mqtt.connect(hostp, portp, userp, passp, useSSLp, clientId);
+            mqtt.subscribe(topicp, callback, hostp, portp, userp, passp, useSSLp);
+          };
+          ///////////////////////////////////////////////////////
+          $scope.uniqueId = 'myPub' + $scope.$id;
+        }
+      ],
+      link: function(scope, element, attributes, mqttPanelController) {
+        var callback = function(message) {
+          var tmp = message.payloadString;
+          document.getElementById(scope.uniqueId)
+            .innerHTML = tmp;
+          scope.$apply();
+        };
+        if (attributes.host && attributes.host.length) {
+          scope.connect(attributes.host, parseInt(attributes.port), attributes.user, attributes.password, attributes.useSsl == 'true', attributes.topic, attributes.clientId, callback);
+        } else if (mqttPanelController != undefined) {
+          scope.$on('ready-to-connect', function(event, arg) {
+            mqttPanelController.connect(attributes.topic, callback);
+          });
+        }
+      },
+      replace: true,
+      template: '<span id="{{::uniqueId}}"></span>'
+    };
+  });
