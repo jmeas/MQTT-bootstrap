@@ -9,6 +9,7 @@ angular.module('Mqtt.Services', [])
 
     // using named parameters because 
     mqttObj.connect = function(host, port, user, pass, useSSL, clientId) {
+      if (useSSL === undefined) useSSL = false;
       var retry;
       if (clientId == undefined) {
         clientId = guid();
@@ -79,6 +80,7 @@ angular.module('Mqtt.Services', [])
     };
 
     mqttObj.subscribe = function(topic, callback, host, port, user, pass, useSSL, clientId) {
+      if (useSSL === undefined) useSSL = false;
       var key = getHashKey(host, port, user, pass, useSSL);
       var client = connections[key];
       if (client == undefined) {
@@ -103,6 +105,7 @@ angular.module('Mqtt.Services', [])
     };
 
     mqttObj.sendMessage = function(msg, topic, host, port, user, pass, useSSL) {
+      if (useSSL === undefined) useSSL = false;
       var key = getHashKey(host, port, user, pass, useSSL);
       var client = connections[key];
       if (client == undefined) {

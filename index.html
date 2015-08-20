@@ -137,10 +137,8 @@
       </pre>
       <p>Note that if you send a payload in the form Kitchen=71.5 and then another in that same form, Bedroom=70.2, you will get 2 bars labeled Kitchen and Bedroom with their corresponding values</p>
       <div>
-            <mqtt-bar host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage"
-              use-ssl="true" width="401" height="601"></mqtt-bar>
+            <mqtt-bar host="broker.mqttdashboard.com" port="8000"
+              topic="MQTTBootstrap/Testing" width="401" height="601"></mqtt-bar>
       </div>
 
       <h2>Doughnut Chart</h2>
@@ -150,10 +148,9 @@
       </pre>
       <p>Note that the same (name)=(value) format that works for bar charts works for doughnut charts.  Also note the max-value attribute that specifies the size of the doughnut (useful if there is only one segment).
         <div>
-            <mqtt-doughnut host="broker.xively.com" port="443" client-id="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541"
-              user="69e9ea4e-deea-4a03-b8b8-7b15f5c7a541" password="pv4ijDlTbjghPaHbT85T6ArPSH3J3a7gosJNN6vm8UU="
-              topic="xi/blue/v1/bc4ebe58-b070-437b-9a64-a112bb2283d8/d/a98750d3-2411-4b5e-8b94-e6e86e0c9823/Voltage" width="401" height="401" 
-              use-ssl="true" max-value="200"></mqtt-doughnut>
+            <mqtt-doughnut host="broker.mqttdashboard.com" port="8000"
+              topic="MQTTBootstrap/Testing" width="401" height="401" 
+              max-value="200"></mqtt-doughnut>
         </div>
 
         <h2>MQTT Panel</h2>

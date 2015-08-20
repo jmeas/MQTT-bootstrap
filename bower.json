@@ -22,6 +22,10 @@
     "angular": "~1.4.3",
     "bootstrap": "~3.3.5",
     "Chart.js": "~1.0.2",
-    "bower-paho-mqtt": "*"
+    "bower-paho-mqtt": "*",
+    "mocha": "~2.2.5",
+    "karma": "~0.4.6",
+    "chai": "~3.2.0",
+    "angular-mocks": "~1.4.4"
   }
 }
