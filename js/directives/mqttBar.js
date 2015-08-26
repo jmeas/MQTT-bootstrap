@@ -1,14 +1,14 @@
 angular.module('Mqtt.Controls')
-  .directive('mqttBar', function() {
+  .directive('mqttBar', function () {
     return {
       restrict: 'E',
       scope: {},
       require: '^?mqttPanel',
       controller: ['$scope', 'mqtt',
-        function($scope, mqtt) {
+        function ($scope, mqtt) {
           ///////////////////////////////////////////////////////
           // only a fallback for if this tag isn't in an mqtt-panel
-          $scope.connect = function(host, port, user, pass, useSSL, topic, clientId, callback) {
+          $scope.connect = function (host, port, user, pass, useSSL, topic, clientId, callback) {
             mqtt.connect(host, port, user, pass, useSSL, clientId);
             mqtt.subscribe(topic, callback, host, port, user, pass, useSSL);
           };
@@ -16,20 +16,24 @@ angular.module('Mqtt.Controls')
           $scope.uniqueId = 'myChart' + $scope.$id;
         }
       ],
-      link: function(scope, element, attributes, mqttPanelController) {
-        var callback = function(message) {
+      link: function (scope, element, attributes, mqttPanelController) {
+        var callback = function (message) {
+          ///////////
+          // TODO: extract this to a common function
+          if (attributes.transform != undefined && window[attributes.transform] != undefined) {
+            msg = window[attributes.transform](message.payloadString);
+          }
           // parse msg, can be just a number or <name>=<value>
           var tmp;
           var nm = message.destinationName;
-          if (message.payloadString.indexOf('=') > 0) {
-            var data = message.payloadString.split('=');
+          if (msg.indexOf('=') > 0) {
+            var data = msg.split('=');
             var nm = data[0].trim();
             tmp = parseFloat(data[1].trim());
           } else {
-            tmp = parseFloat(message.payloadString);
+            tmp = parseFloat(msg);
           }
           if (nm.length > 40) nm = nm.substring(0, 40) + '...';
-
 
           if (scope.chart == undefined) {
             // get chart
@@ -68,9 +72,10 @@ angular.module('Mqtt.Controls')
         };
 
         if (attributes.host && attributes.host.length) {
-          scope.connect(attributes.host, parseInt(attributes.port), attributes.user, attributes.password, attributes.useSsl == 'true', attributes.topic, attributes.clientId, callback);
+          scope.connect(attributes.host, parseInt(attributes.port), attributes.user, attributes.password,
+            attributes.useSsl == 'true', attributes.topic, attributes.clientId, callback);
         } else if (mqttPanelController != undefined) {
-          scope.$on('ready-to-connect', function(event, arg) {
+          scope.$on('ready-to-connect', function (event, arg) {
             mqttPanelController.connect(attributes.topic, callback);
           });
         }
