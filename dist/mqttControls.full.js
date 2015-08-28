@@ -79,6 +79,7 @@ angular.module('Mqtt.Controls')
       ],
       link: function (scope, element, attributes, mqttPanelController) {
         var callback = function (message) {
+          var msg = message.payloadString;
           ///////////
           // TODO: extract this to a common function
           if (attributes.transform != undefined && window[attributes.transform] != undefined) {
@@ -166,7 +167,7 @@ angular.module('Mqtt.Controls')
       link: function (scope, element, attributes, mqttPanelController) {
         var max = attributes.maxValue;
         var callback = function (message) {
-          var msg;
+          var msg = message.payloadString;
           ///////////
           // TODO: extract this to a common function
           if (attributes.transform != undefined && window[attributes.transform] != undefined) {
@@ -396,6 +397,7 @@ angular.module('Mqtt.Controls')
         scope.curValue = 0;
 
         var callback = function (message) {
+          var msg = message.payloadString;
           if (attributes.transform != undefined && window[attributes.transform] != undefined) {
             msg = window[attributes.transform](message.payloadString);
           }

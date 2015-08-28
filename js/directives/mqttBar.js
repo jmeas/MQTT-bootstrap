@@ -18,6 +18,7 @@ angular.module('Mqtt.Controls')
       ],
       link: function (scope, element, attributes, mqttPanelController) {
         var callback = function (message) {
+          var msg = message.payloadString;
           ///////////
           // TODO: extract this to a common function
           if (attributes.transform != undefined && window[attributes.transform] != undefined) {

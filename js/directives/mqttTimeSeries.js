@@ -29,6 +29,7 @@ angular.module('Mqtt.Controls')
         scope.curValue = 0;
 
         var callback = function (message) {
+          var msg = message.payloadString;
           if (attributes.transform != undefined && window[attributes.transform] != undefined) {
             msg = window[attributes.transform](message.payloadString);
           }
