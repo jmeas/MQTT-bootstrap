@@ -2,7 +2,7 @@
   "name": "mqtt-bootstrap",
   "version": "1.0.0",
   "description": "The quickest way to get a bootstrap front-end running",
-  "main": "index.js",
+  "main": "dist/mqttControls.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
