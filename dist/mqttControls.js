@@ -1,4 +1,18 @@
-angular.module('Mqtt.Controls', ['Mqtt.Services'])
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['angular'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require('angular'));
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory(root.angular);
+    }
+}(this, function (angular) {
+    angular.module('Mqtt.Controls', ['Mqtt.Services'])
   .directive('mqttPanel', function() {
     return {
       restrict: 'E',
@@ -363,7 +377,7 @@ angular.module('Mqtt.Controls').directive('mqttOnOffSwitch', function() {
       }
     },
     replace: true,
-    template: '<form action=".">' + '	<input type="checkbox" id="{{::uniqueId}}" ng-click="sendMessage()"></input>' + ' <label for="{{::uniqueId}}">{{topic}}</label>' + '</form>'
+    template: '<form action=".">' + ' <input type="checkbox" id="{{::uniqueId}}" ng-click="sendMessage()"></input>' + ' <label for="{{::uniqueId}}">{{topic}}</label>' + '</form>'
   };
 });
 angular.module('Mqtt.Controls')
@@ -497,3 +511,4 @@ angular.module('Mqtt.Controls')
       template: '<span id="{{::uniqueId}}"></span>'
     };
   });
+}));
